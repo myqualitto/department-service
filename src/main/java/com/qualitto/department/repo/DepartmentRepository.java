@@ -8,5 +8,4 @@ import com.qualitto.department.entities.Department;
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long>{
 
-	Department findByDepartmentId(Long departmentID);
 }

@@ -1,5 +1,7 @@
 package com.qualitto.department.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,17 +16,22 @@ import com.qualitto.department.service.DepartmentService;
 @RestController
 @RequestMapping("/departments")
 public class DepartmentController {
-	
+
 	@Autowired
-	private DepartmentService departmentService;
-	
+	private DepartmentService deptSrv;
+
 	@PostMapping("/")
 	public Department saveDepartment(@RequestBody Department department) {
-		return departmentService.saveDepartment(department);
+		return deptSrv.saveDepartment(department);
 	}
-	
+
 	@GetMapping("/{id}")
-	public Department findDepartmentById(@PathVariable(value="id") Long departmentId){
-		return departmentService.findDepartmentById(departmentId);
+	public Department findById(@PathVariable(value = "id") Long departmentId) {
+		Optional<Department> deptData = deptSrv.findById(departmentId);
+		if (deptData.isPresent()) {
+			return deptData.get();
+		} else {
+			return null;
+		}
 	}
 }
