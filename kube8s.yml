@@ -29,7 +29,7 @@ metadata:
 spec:
    type: NodePort
    ports:
-   -  nodePort: 30001
+   -  nodePort: 30003
       port: 9091
       targetPort: 9091
    selector:
