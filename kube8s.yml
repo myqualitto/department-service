@@ -27,10 +27,26 @@ metadata:
    labels:
       app: department-service-k8srv
 spec:
-   type: NodePort
    ports:
-   -  nodePort: 30003
-      port: 9091
-      targetPort: 9091
+    - port: 9091
    selector:
       app: department-service
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qualitto-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: "qualitto.com"
+    http:
+      paths:
+        - path: /departments
+          pathType: Prefix
+          backend:
+            service:
+              name: config-server-k8srv
+              port: 
+                number: 9091
