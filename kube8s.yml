@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
    name: department-service
 spec:
-   replicas: 2
+   replicas: 1
    selector:
       matchLabels:
          app: department-service
@@ -31,22 +31,3 @@ spec:
     - port: 9091
    selector:
       app: department-service
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: qualitto-ingress
-  annotations:
-    ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-  - host: "qualitto.com"
-    http:
-      paths:
-        - path: /departments
-          pathType: Prefix
-          backend:
-            service:
-              name: config-server-k8srv
-              port: 
-                number: 9091
